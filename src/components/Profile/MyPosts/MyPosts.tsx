@@ -1,14 +1,15 @@
 import React from "react";
 import s from './MyPosts.module.css';
 import Post from "./Post/Post";
+import {ProfileProps} from "../Profile";
 
 
-function MyPosts() {
-    let messagesData = [
-        {id: 1, messages: "Привет!", likesCount: 12},
-        {id: 2, messages: "Как дела?", likesCount: 20},
-    ]
 
+function MyPosts(props: ProfileProps) {
+
+    let postsElement = props.posts.map(m => {
+        return <Post message={m.messages} likes={m.likesCount}/>
+    })
     return (
         <div className={s.postBlock}>
             <h3>My posts</h3>
@@ -21,9 +22,7 @@ function MyPosts() {
                 </div>
             </div>
             <div className={s.posts}>
-                {messagesData.map(p => {
-                    return <Post message={p.messages} likes={p.likesCount}/>
-                })}
+                {postsElement}
             </div>
         </div>
     )

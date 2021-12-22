@@ -1,35 +1,30 @@
 import React from 'react';
-import s from './Dialogs.module.css'
-import {Contacts} from "./Contacts/Contacts";
+import s from './Dialogs.module.css';
+import {DialogItem} from "./DialogItem/DialogItem";
 import {Messages} from "./Messages/Messages";
+import {DialogsType, MessagesType} from "../../index";
 
-function Dialogs() {
-    let contactsData = [
-        {id: 1, name: "Evgen"},
-        {id: 2, name: "User2"},
-        {id: 3, name: "User3"},
-        {id: 4, name: "User4"},
-        {id: 5, name: "User5"},
-    ]
-    let messagesData = [
-        {id: 1, messages: "Hi!"},
-        {id: 2, messages: "How are you?"},
-        {id: 3, messages: "Yo-yo!"},
-        {id: 4, messages: "Lets learn React!"},
-        {id: 5, messages: "Lets learn TypeScript"},
-    ]
+type DialogsProps = {
+    message: Array<MessagesType>
+    dialog: Array<DialogsType>
+}
+
+function Dialogs(props: DialogsProps) {
+
+    let contactsElements = props.dialog.map(d => {
+        return <DialogItem name={d.name} id={d.id}/>
+    })
+    let messagesElements = props.message.map(m => {
+        return <Messages message={m.messages}/>
+    })
 
     return (
         <div className={s.dialogs}>
             <div className={s.items}>
-                {contactsData.map(t => {
-                    return <Contacts name={t.name} id={t.id}/>
-                })}
+                {contactsElements}
             </div>
             <div className={s.messages}>
-                {messagesData.map(m => {
-                    return <Messages message={m.messages}/>
-                })}
+                {messagesElements}
             </div>
         </div>
     )
