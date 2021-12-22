@@ -4,6 +4,11 @@ import Post from "./Post/Post";
 
 
 function MyPosts() {
+    let messagesData = [
+        {id: 1, messages: "Привет!", likesCount: 12},
+        {id: 2, messages: "Как дела?", likesCount: 20},
+    ]
+
     return (
         <div className={s.postBlock}>
             <h3>My posts</h3>
@@ -16,8 +21,9 @@ function MyPosts() {
                 </div>
             </div>
             <div className={s.posts}>
-                <Post message="Привет!" likes={15}/>
-                <Post message="Как дела?" likes={20}/>
+                {messagesData.map(p => {
+                    return <Post message={p.messages} likes={p.likesCount}/>
+                })}
             </div>
         </div>
     )
