@@ -8,15 +8,11 @@ import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import News from "./components/News/News";
 import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
-import {DialogsType, MessagesType, PostsType} from "./index";
+import state from "./components/Redux/state";
 
-export type AppProps = {
-    posts: Array<PostsType>
-    message: Array<MessagesType>
-    dialog: Array<DialogsType>
-}
 
-function App(props: AppProps) {
+function App() {
+
     return (
         <BrowserRouter>
             <div className='app-wrapper'>
@@ -24,12 +20,13 @@ function App(props: AppProps) {
                 <Navbar/>
                 <div className='app-wrapper-content'>
                     <Routes>
-                        <Route path="/profile" element={<Profile posts={props.posts}/>}/>
-                        <Route path="/dialogs/*" element={<Dialogs dialog={props.dialog} message={props.message}/>}/>
+                        <Route path="/profile" element={<Profile state={state.profilePage.posts}/>}/>
+                        <Route path="/dialogs/*" element={<Dialogs state={state.dialogsPage}/>}/>
                         <Route path="/news" element={<News/>}/>
                         <Route path="/music" element={<Music/>}/>
                         <Route path="/settings" element={<Settings/>}/>
                     </Routes>
+
                 </div>
             </div>
         </BrowserRouter>

@@ -1,13 +1,15 @@
 import React from "react";
 import s from './MyPosts.module.css';
 import Post from "./Post/Post";
-import {ProfileProps} from "../Profile";
+import {PostsType} from "../../Redux/state";
 
+export type MyPostsProps = {
+    state: Array<PostsType>
+}
 
+function MyPosts(props: MyPostsProps) {
 
-function MyPosts(props: ProfileProps) {
-
-    let postsElement = props.posts.map(m => {
+    let postsElement = props.state.map(m => {
         return <Post message={m.messages} likes={m.likesCount}/>
     })
     return (
@@ -15,7 +17,7 @@ function MyPosts(props: ProfileProps) {
             <h3>My posts</h3>
             <div>
                 <div>
-                    <textarea></textarea>
+                    <textarea> </textarea>
                 </div>
                 <div className={s.button}>
                     <button>Add post</button>
