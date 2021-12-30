@@ -17,6 +17,8 @@ function Dialogs(props: DialogsProps) {
         return <Messages message={m.messages}/>
     })
 
+    let newMessage = React.createRef<HTMLTextAreaElement>()
+
     return (
         <div className={s.dialogs}>
             <div className={s.items}>
@@ -24,6 +26,8 @@ function Dialogs(props: DialogsProps) {
             </div>
             <div className={s.messages}>
                 {messagesElements}
+                <textarea ref={newMessage}> </textarea>
+                <button onClick={() => alert(newMessage.current?.value)}>Send message</button>
             </div>
         </div>
     )

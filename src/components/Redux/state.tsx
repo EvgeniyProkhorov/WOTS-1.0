@@ -1,3 +1,5 @@
+import {rerenderEntireTree} from "../../render";
+
 export type PostsType = {
     id: number
     messages: string
@@ -33,6 +35,14 @@ export type RootStateType = {
     sidebar: SidebarType
 }
 
+export const addPost = (postMessage: string) => {
+    let newPost = {id: Date.now(), messages: postMessage, likesCount: 12}
+    state.profilePage.posts.push(newPost)
+    rerenderEntireTree(state)
+}
+export const inputChanges = () => {
+    rerenderEntireTree(state)
+}
 
 let state: RootStateType = {
     profilePage: {

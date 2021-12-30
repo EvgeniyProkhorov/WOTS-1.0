@@ -6,13 +6,14 @@ import {PostsType} from "../Redux/state";
 
 export type ProfileProps = {
     state: Array<PostsType>
+    addPost: (postMessage: string) => void
 }
 
 function Profile(props: ProfileProps) {
     return (
         <div>
             <ProfileInfo/>
-            <MyPosts state={props.state}/>
+            <MyPosts state={props.state} addPost={props.addPost}/>
         </div>
     )
 }
