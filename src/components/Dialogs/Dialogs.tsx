@@ -19,9 +19,10 @@ function Dialogs(props: DialogsProps) {
         return <Messages message={m.messages}/>
     })
 
-    const onChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>)=> {
+    const onChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
         props.onChangeMessageCallBack(e.currentTarget.value)
     }
+    const onClickHandler = () => props.addMessage(props.state.newMessage)
 
 
     return (
@@ -32,7 +33,7 @@ function Dialogs(props: DialogsProps) {
             <div className={s.messages}>
                 {messagesElements}
                 <textarea value={props.state.newMessage} onChange={onChangeHandler}> </textarea>
-                <button onClick={()=> props.addMessage(props.state.newMessage)}>Send message</button>
+                <button onClick={onClickHandler}>Send message</button>
             </div>
         </div>
     )
