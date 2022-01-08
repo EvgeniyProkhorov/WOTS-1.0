@@ -1,4 +1,10 @@
-import {rerenderEntireTree} from "../../render";
+let rerenderEntireTree: (state: RootStateType) => void = () => {
+    console.log('State was changed')
+}
+
+export const subscribe = (observer: (state: RootStateType) => void) => {
+    rerenderEntireTree = observer
+}
 
 export type PostsType = {
     id: number
