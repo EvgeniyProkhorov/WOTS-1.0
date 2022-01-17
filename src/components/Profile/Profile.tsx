@@ -1,7 +1,7 @@
 import React from "react";
 import MyPosts from "./MyPosts/MyPosts";
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
-import {changeNewTextCallBack, PostsType, ProfilePageType} from "../Redux/state";
+import {ProfilePageType} from "../Redux/state";
 
 
 export type ProfileProps = {
@@ -16,7 +16,7 @@ function Profile(props: ProfileProps) {
             <ProfileInfo/>
             <MyPosts state={props.state}
                      addPost={props.addPost}
-                     changeNewTextCallBack={changeNewTextCallBack}/>
+                     changeNewTextCallBack={props.changeNewTextCallBack}/>
         </div>
     )
 }
