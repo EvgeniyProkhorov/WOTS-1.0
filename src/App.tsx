@@ -25,11 +25,15 @@ const App: React.FC<AppProps> = (props) => {
                 <div className='app-wrapper-content'>
                     <Routes>
                         <Route path="/profile" element={<Profile state={state.profilePage}
-                                                                 addPost={props.store.addPost.bind(props.store)}
-                                                                 changeNewTextCallBack={props.store.changeNewTextCallBack.bind(props.store)}/>}/>
+                                                                 dispatch={props.store.dispatch.bind(props.store)}
+                                                                 // addPost={props.store.addPost.bind(props.store)}
+                                                                 // changeNewTextCallBack={props.store.changeNewTextCallBack.bind(props.store)}
+                        />}/>
                         <Route path="/dialogs/*" element={<Dialogs state={state.dialogsPage}
-                                                                   addMessage={props.store.addMessage.bind(props.store)}
-                                                                   onChangeMessageCallBack={props.store.onChangeMessageCallBack.bind(props.store)}/>}/>
+                                                                   dispatch={props.store.dispatch.bind(props.store)}
+                                                                   // addMessage={props.store.addMessage.bind(props.store)}
+                                                                   // onChangeMessageCallBack={props.store.onChangeMessageCallBack.bind(props.store)}
+                        />}/>
                         <Route path="/news" element={<News/>}/>
                         <Route path="/music" element={<Music/>}/>
                         <Route path="/settings" element={<Settings/>}/>

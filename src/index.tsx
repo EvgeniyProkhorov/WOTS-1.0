@@ -5,10 +5,10 @@ import {store, StoreType} from "./components/Redux/state";
 import ReactDOM from "react-dom";
 import App from "./App";
 
-const rerenderEntireTree = (state: StoreType) => {
+const rerenderEntireTree = (store: StoreType) => {
     ReactDOM.render(
         <React.StrictMode>
-            <App store={state}/>
+            <App store={store}/>
         </React.StrictMode>,
         document.getElementById('root')
     );

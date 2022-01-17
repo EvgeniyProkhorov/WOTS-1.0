@@ -1,12 +1,31 @@
 export type StoreType = {
     _state: RootStateType
-    addPost: (postMessage: string) => void
-    changeNewTextCallBack: (message: string) => void
-    addMessage: (message: string) => void
-    onChangeMessageCallBack: (text: string) => void
-    _callSubscriber: (_state: RootStateType) => void
-    subscribe: (observer: (_state: RootStateType) => void) => void
+    // addPost: (postMessage: string) => void
+    // changeNewTextCallBack: (message: string) => void
+    // addMessage: (message: string) => void
+    // onChangeMessageCallBack: (text: string) => void
+    _callSubscriber: () => void
+    subscribe: (observer: () => void) => void
     getState: () => RootStateType
+    dispatch: (action: ActionsType) => void
+}
+
+export type ActionsType = AddPostActionType | ChangeNewTextOnPostActionType | AddNewMessageActionType | ChangeNewTextOnMessagesActionType
+type AddPostActionType = {
+    type: 'ADD-POST'
+    postMessage: string
+}
+type ChangeNewTextOnPostActionType = {
+    type: 'CHANGE-NEW-TEXT'
+    message: string
+}
+type AddNewMessageActionType = {
+    type: 'ADD-NEW-MESSAGE'
+    message: string
+}
+type ChangeNewTextOnMessagesActionType = {
+    type: 'CHANGE-TEXT-ON-MESSAGES'
+    text: string
 }
 
 export let store: StoreType = {
@@ -44,27 +63,27 @@ export let store: StoreType = {
             ]
         }
     },
-    addPost(postMessage: string) {
-        let newPost = {id: Date.now(), messages: postMessage, likesCount: 12}
-        this._state.profilePage.posts.push(newPost)
-        this._state.profilePage.newPostText = ''
-        this._callSubscriber(this._state)
-    },
-    changeNewTextCallBack(message: string) {
-        this._state.profilePage.newPostText = message
-        this._callSubscriber(this.getState())
-    },
-    addMessage(message: string) {
-        const newMessage = {id: Date.now(), messages: message}
-        this._state.dialogsPage.messages.push(newMessage)
-        this._state.dialogsPage.newMessage = ""
-        this._callSubscriber(this.getState())
-    },
-    onChangeMessageCallBack(text: string) {
-        this._state.dialogsPage.newMessage = text
-        this._callSubscriber(this.getState())
-    },
-    _callSubscriber(_state) {
+    // addPost(postMessage: string) {
+    //     let newPost = {id: Date.now(), messages: postMessage, likesCount: 12}
+    //     this._state.profilePage.posts.push(newPost)
+    //     this._state.profilePage.newPostText = ''
+    //     this._callSubscriber()
+    // },
+    // changeNewTextCallBack(message: string) {
+    //     this._state.profilePage.newPostText = message
+    //     this._callSubscriber()
+    // },
+    // addMessage(message: string) {
+    //     const newMessage = {id: Date.now(), messages: message}
+    //     this._state.dialogsPage.messages.push(newMessage)
+    //     this._state.dialogsPage.newMessage = ""
+    //     this._callSubscriber()
+    // },
+    // onChangeMessageCallBack(text: string) {
+    //     this._state.dialogsPage.newMessage = text
+    //     this._callSubscriber()
+    // },
+    _callSubscriber() {
         console.log('State was changed')
     },
     subscribe(observer) {
@@ -72,6 +91,25 @@ export let store: StoreType = {
     },
     getState() {
         return this._state
+    },
+    dispatch(action) {
+        if (action.type === 'ADD-POST') {
+            let newPost: PostsType = {id: Date.now(), messages: action.postMessage, likesCount: 12}
+            this._state.profilePage.posts.push(newPost)
+            this._state.profilePage.newPostText = ''
+            this._callSubscriber()
+        } else if (action.type === 'CHANGE-NEW-TEXT') {
+            this._state.profilePage.newPostText = action.message
+            this._callSubscriber()
+        } else if (action.type === 'ADD-NEW-MESSAGE') {
+            const newMessage = {id: Date.now(), messages: action.message}
+            this._state.dialogsPage.messages.push(newMessage)
+            this._state.dialogsPage.newMessage = ""
+            this._callSubscriber()
+        } else if (action.type === 'CHANGE-TEXT-ON-MESSAGES') {
+            this._state.dialogsPage.newMessage = action.text
+            this._callSubscriber()
+        }
     }
 }
 

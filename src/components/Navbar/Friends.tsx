@@ -10,7 +10,7 @@ export function Friends (props: FriendsProps) {
         <div>
             <div>Friends</div>
             <div>
-                {props.friends.map(e => <span>{e.name} </span>)}
+                {props.friends.map(e => <span key={e.id}>{e.name} </span>)}
             </div>
 
         </div>

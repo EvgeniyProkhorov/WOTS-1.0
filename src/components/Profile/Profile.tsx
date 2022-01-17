@@ -1,13 +1,14 @@
 import React from "react";
 import MyPosts from "./MyPosts/MyPosts";
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
-import {ProfilePageType} from "../Redux/state";
+import {ActionsType, ProfilePageType} from "../Redux/state";
 
 
 export type ProfileProps = {
     state: ProfilePageType
-    addPost: (postMessage: string) => void
-    changeNewTextCallBack: (message: string) => void
+    // addPost: (postMessage: string) => void
+    // changeNewTextCallBack: (message: string) => void
+    dispatch: (action: ActionsType) => void
 }
 
 function Profile(props: ProfileProps) {
@@ -15,8 +16,10 @@ function Profile(props: ProfileProps) {
         <div>
             <ProfileInfo/>
             <MyPosts state={props.state}
-                     addPost={props.addPost}
-                     changeNewTextCallBack={props.changeNewTextCallBack}/>
+                     // addPost={props.addPost}
+                     dispatch={props.dispatch}
+                     // changeNewTextCallBack={props.changeNewTextCallBack}
+            />
         </div>
     )
 }
