@@ -1,3 +1,7 @@
+import profileReducer, {addPostAC, changeNewTextOnPostAC} from "./profileReducer";
+import dialogsReducer, {changeTextOnMessageAC, sendNewMessageAC} from "./dialogsReducer";
+import sidebarReducer from "./sidebarReducer";
+
 export type StoreType = {
     _state: RootStateType
     // addPost: (postMessage: string) => void
@@ -11,52 +15,13 @@ export type StoreType = {
 }
 
 export type ActionsType =
-    addPostACType
-    | changeNewTextOnPostACType
-    | addNewMessageACType
-    | changeTextOnMessageACType
-
-type addPostACType = ReturnType<typeof addPostAC>
-type changeNewTextOnPostACType = ReturnType<typeof changeNewTextOnPostAC>
-type addNewMessageACType = ReturnType<typeof addNewMessageAC>
-type changeTextOnMessageACType = ReturnType<typeof changeTextOnMessageAC>
+    ReturnType<typeof addPostAC>
+    | ReturnType<typeof changeNewTextOnPostAC>
+    | ReturnType<typeof sendNewMessageAC>
+    | ReturnType<typeof changeTextOnMessageAC>
 
 
-
-export const addPostAC = (postMessage: string) => {
-    return {
-        type: "ADD-POST",
-        payload: {
-            postMessage
-        }
-    } as const
-}
-export const changeNewTextOnPostAC = (message: string) => {
-    return {
-        type: "CHANGE-NEW-TEXT",
-        payload: {
-            message
-        }
-    } as const
-}
-export const addNewMessageAC = (message: string) => {
-    return {
-        type: 'ADD-NEW-MESSAGE',
-        payload: {
-            message
-        }
-    } as const
-}
-export const changeTextOnMessageAC = (text: string) => {
-    return {
-        type: 'CHANGE-TEXT-ON-MESSAGES',
-        payload: {
-            text
-        }
-    } as const
-}
-
-export let store: StoreType = {
+let store: StoreType = {
     _state: {
         profilePage: {
             posts: [
@@ -91,6 +56,7 @@ export let store: StoreType = {
             ]
         }
     },
+
     // addPost(postMessage: string) {
     //     let newPost = {id: Date.now(), messages: postMessage, likesCount: 12}
     //     this._state.profilePage.posts.push(newPost)
@@ -111,35 +77,26 @@ export let store: StoreType = {
     //     this._state.dialogsPage.newMessage = text
     //     this._callSubscriber()
     // },
+
     _callSubscriber() {
         console.log('State was changed')
     },
+
     subscribe(observer) {
         this._callSubscriber = observer
     },
+
     getState() {
         return this._state
     },
+
     dispatch(action) {
-        if (action.type === 'ADD-POST') {
-            let newPost: PostsType = {id: Date.now(), messages: action.payload.postMessage, likesCount: 12}
-            this._state.profilePage.posts.push(newPost)
-            this._state.profilePage.newPostText = ''
-            this._callSubscriber()
-        } else if (action.type === 'CHANGE-NEW-TEXT') {
-            this._state.profilePage.newPostText = action.payload.message
-            this._callSubscriber()
-        } else if (action.type === 'ADD-NEW-MESSAGE') {
-            const newMessage = {id: Date.now(), messages: action.payload.message}
-            this._state.dialogsPage.messages.push(newMessage)
-            this._state.dialogsPage.newMessage = ""
-            this._callSubscriber()
-        } else if (action.type === 'CHANGE-TEXT-ON-MESSAGES') {
-            this._state.dialogsPage.newMessage = action.payload.text
-            this._callSubscriber()
+        this._state.profilePage = profileReducer(this._state.profilePage,action)
+        this._state.dialogsPage = dialogsReducer(this._state.dialogsPage,action)
+        this._state.sidebar = sidebarReducer(this._state.sidebar,action)
+        this._callSubscriber()
         }
     }
-}
 
 
 export type PostsType = {

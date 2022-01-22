@@ -1,7 +1,9 @@
 import React, {ChangeEvent} from "react";
 import s from './MyPosts.module.css';
 import Post from "./Post/Post";
-import {ActionsType, addPostAC, changeNewTextOnPostAC, ProfilePageType} from "../../Redux/state";
+import {ActionsType, ProfilePageType} from "../../Redux/store";
+import {addPostAC, changeNewTextOnPostAC} from "../../Redux/profileReducer";
+// import {AppDispatch} from "../../Redux/redux-store";
 
 export type MyPostsProps = {
     state: ProfilePageType
@@ -17,14 +19,16 @@ function MyPosts(props: MyPostsProps) {
         return <Post key={m.id} message={m.messages} likes={m.likesCount}/>
     })
     const addPost = () => {
-        debugger
+        // AppDispatch(addPostAC(props.state.newPostText))
+        props.dispatch(addPostAC(props.state.newPostText))
+
         // let newPostText = addPostAC(props.state.newPostText)
         // props.dispatch({type: "ADD-POST", postMessage: props.state.newPostText})
-        props.dispatch(addPostAC(props.state.newPostText))
         // props.addPost(props.state.newPostText)
         // props.addPost(newPostElement.current ? newPostElement.current.value : "")
     }
     const onChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        // AppDispatch(changeNewTextOnPostAC(e.currentTarget.value))
         props.dispatch(changeNewTextOnPostAC(e.currentTarget.value))
         // props.changeNewTextCallBack(e.currentTarget.value)
     }

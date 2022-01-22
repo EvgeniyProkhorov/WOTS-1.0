@@ -2,7 +2,9 @@ import React, {ChangeEvent} from 'react';
 import s from './Dialogs.module.css';
 import {DialogItem} from "./DialogItem/DialogItem";
 import {Messages} from "./Messages/Messages";
-import {ActionsType, addNewMessageAC, changeTextOnMessageAC, DialogsPageType} from "../Redux/state";
+import {ActionsType, DialogsPageType} from "../Redux/store";
+import {changeTextOnMessageAC, sendNewMessageAC} from "../Redux/dialogsReducer";
+// import {AppDispatch} from "../Redux/redux-store";
 
 type DialogsProps = {
     state: DialogsPageType
@@ -21,11 +23,13 @@ function Dialogs(props: DialogsProps) {
     })
 
     const onChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        // AppDispatch(changeTextOnMessageAC(e.currentTarget.value))
         props.dispatch(changeTextOnMessageAC(e.currentTarget.value))
         // props.onChangeMessageCallBack(e.currentTarget.value)
     }
     const onClickHandler = () => {
-        props.dispatch(addNewMessageAC(props.state.newMessage))
+        // AppDispatch(sendNewMessageAC(props.state.newMessage))
+        props.dispatch(sendNewMessageAC(props.state.newMessage))
         // props.addMessage(props.state.newMessage)
     }
 
@@ -36,9 +40,12 @@ function Dialogs(props: DialogsProps) {
                 {contactsElements}
             </div>
             <div className={s.messages}>
-                {messagesElements}
-                <textarea value={props.state.newMessage} onChange={onChangeHandler}> </textarea>
-                <button onClick={onClickHandler}>Send message</button>
+                <div>{messagesElements}</div>
+                <div>
+                    <textarea value={props.state.newMessage}
+                              onChange={onChangeHandler}> </textarea>
+                    <button onClick={onClickHandler}>Send message</button>
+                </div>
             </div>
         </div>
     )
