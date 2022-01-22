@@ -2,15 +2,12 @@ import React, {ChangeEvent} from 'react';
 import s from './Dialogs.module.css';
 import {DialogItem} from "./DialogItem/DialogItem";
 import {Messages} from "./Messages/Messages";
-import {ActionsType, DialogsPageType} from "../Redux/store";
-import {changeTextOnMessageAC, sendNewMessageAC} from "../Redux/dialogsReducer";
-// import {AppDispatch} from "../Redux/redux-store";
+import {DialogsPageType} from "../Redux/store";
 
 type DialogsProps = {
     state: DialogsPageType
-    // addMessage: (message: string) => void
-    // onChangeMessageCallBack: (text: string) => void
-    dispatch: (action: ActionsType) => void
+    updateTextMessage: (e: ChangeEvent<HTMLTextAreaElement>) => void
+    onClickSendMessage: () => void
 }
 
 function Dialogs(props: DialogsProps) {
@@ -23,14 +20,10 @@ function Dialogs(props: DialogsProps) {
     })
 
     const onChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        // AppDispatch(changeTextOnMessageAC(e.currentTarget.value))
-        props.dispatch(changeTextOnMessageAC(e.currentTarget.value))
-        // props.onChangeMessageCallBack(e.currentTarget.value)
+        props.updateTextMessage(e)
     }
     const onClickHandler = () => {
-        // AppDispatch(sendNewMessageAC(props.state.newMessage))
-        props.dispatch(sendNewMessageAC(props.state.newMessage))
-        // props.addMessage(props.state.newMessage)
+        props.onClickSendMessage()
     }
 
 
