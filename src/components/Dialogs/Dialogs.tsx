@@ -5,17 +5,17 @@ import {Messages} from "./Messages/Messages";
 import {DialogsPageType} from "../Redux/store";
 
 type DialogsProps = {
-    state: DialogsPageType
+    dialogsPage: DialogsPageType
     updateTextMessage: (e: ChangeEvent<HTMLTextAreaElement>) => void
     onClickSendMessage: () => void
 }
 
 function Dialogs(props: DialogsProps) {
 
-    const contactsElements = props.state.dialogs.map(d => {
+    const contactsElements = props.dialogsPage.dialogs.map(d => {
         return <DialogItem name={d.name} id={d.id}/>
     })
-    const messagesElements = props.state.messages.map(m => {
+    const messagesElements = props.dialogsPage.messages.map(m => {
         return <Messages message={m.messages}/>
     })
 
@@ -35,7 +35,7 @@ function Dialogs(props: DialogsProps) {
             <div className={s.messages}>
                 <div>{messagesElements}</div>
                 <div>
-                    <textarea value={props.state.newMessage}
+                    <textarea value={props.dialogsPage.newMessage}
                               onChange={onChangeHandler}> </textarea>
                     <button onClick={onClickHandler}>Send message</button>
                 </div>
