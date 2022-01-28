@@ -2,15 +2,10 @@ import React, {ChangeEvent} from 'react';
 import s from './Dialogs.module.css';
 import {DialogItem} from "./DialogItem/DialogItem";
 import {Messages} from "./Messages/Messages";
-import {DialogsPageType} from "../Redux/store";
+import {DialogsPropsType} from "./DialogsContainer";
 
-type DialogsProps = {
-    dialogsPage: DialogsPageType
-    updateTextMessage: (e: ChangeEvent<HTMLTextAreaElement>) => void
-    onClickSendMessage: () => void
-}
 
-function Dialogs(props: DialogsProps) {
+function Dialogs(props: DialogsPropsType) {
 
     const contactsElements = props.dialogsPage.dialogs.map(d => {
         return <DialogItem name={d.name} id={d.id}/>

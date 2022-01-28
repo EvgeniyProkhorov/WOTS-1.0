@@ -10,10 +10,13 @@ let rootReducer = combineReducers({
     sidebar: sidebarReducer
 })
 
+export type ReduxStoreType = typeof store
+
 export type AppStateType = ReturnType<typeof rootReducer>
+export type DispatchType = typeof dispatch
 
 const store = createStore(rootReducer);
+const dispatch = store.dispatch.bind(store)
 
-export type ReduxStoreType = typeof store
 
 export default store

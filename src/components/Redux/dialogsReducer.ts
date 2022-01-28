@@ -1,4 +1,10 @@
-import {ActionsType, DialogsPageType} from "./store";
+import {ActionsType, DialogsType, MessagesType} from "./store";
+
+export type DialogsPageType = {
+    dialogs: Array<DialogsType>
+    messages: Array<MessagesType>
+    newMessage: string
+}
 
 let dialogInit = {
     dialogs: [
@@ -20,25 +26,26 @@ let dialogInit = {
 
 const dialogsReducer = (state: DialogsPageType = dialogInit, action: ActionsType) => {
     switch(action.type){
-        case "SEND-NEW-MESSAGE":
-            const newMessage = {id: Date.now(), messages: action.payload.message}
-            state.messages.push(newMessage)
-            state.newMessage = ""
-            return state
-        case "CHANGE-TEXT-ON-MESSAGES":
-            state.newMessage = action.payload.text
-            return state
+        case "SEND-NEW-MESSAGE": {
+            const stateCopy = {...state}
+            const newMessage = {id: Date.now(), messages: stateCopy.newMessage}
+            stateCopy.messages.push(newMessage)
+            stateCopy.newMessage = ""
+            return stateCopy
+        }
+        case "CHANGE-TEXT-ON-MESSAGES": {
+            const stateCopy = {...state}
+            stateCopy.newMessage = action.payload.text
+            return stateCopy
+        }
         default:
             return state
     }
 }
 
-export const sendNewMessageAC = (message: string) => {
+export const sendNewMessageAC = () => {
     return {
         type: 'SEND-NEW-MESSAGE',
-        payload: {
-            message
-        }
     } as const
 }
 export const changeTextOnMessageAC = (text: string) => {

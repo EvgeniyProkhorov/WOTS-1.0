@@ -1,4 +1,8 @@
-import {ActionsType, SidebarType} from "./store";
+import {ActionsType, FriendsType} from "./store";
+
+export type SidebarType = {
+    friends: Array<FriendsType>
+}
 
 let sidebarInit = {
     friends: [
