@@ -8,10 +8,10 @@ import {DialogsPropsType} from "./DialogsContainer";
 function Dialogs(props: DialogsPropsType) {
 
     const contactsElements = props.dialogsPage.dialogs.map(d => {
-        return <DialogItem name={d.name} id={d.id}/>
+        return <DialogItem key={d.id} name={d.name} id={d.id}/>
     })
     const messagesElements = props.dialogsPage.messages.map(m => {
-        return <Messages message={m.messages}/>
+        return <Messages key={m.id} message={m.messages}/>
     })
 
     const onChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {

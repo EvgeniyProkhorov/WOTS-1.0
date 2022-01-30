@@ -27,6 +27,9 @@ function Navbar(props: NavbarType) {
                 <NavLink to='/settings' className={({isActive}) => isActive ? s.active : ''}>Settings</NavLink>
             </div>
             <div className={s.item}>
+                <NavLink to='/users' className={({isActive}) => isActive ? s.active : ''}>Users</NavLink>
+            </div>
+            <div className={s.item}>
                 <Friends friends={props.sidebar.friends}/>
             </div>
         </nav>

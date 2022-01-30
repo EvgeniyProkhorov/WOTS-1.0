@@ -26,17 +26,12 @@ let dialogInit = {
 
 const dialogsReducer = (state: DialogsPageType = dialogInit, action: ActionsType) => {
     switch(action.type){
-        case "SEND-NEW-MESSAGE": {
-            const stateCopy = {...state}
-            const newMessage = {id: Date.now(), messages: stateCopy.newMessage}
-            stateCopy.messages.push(newMessage)
-            stateCopy.newMessage = ""
-            return stateCopy
-        }
         case "CHANGE-TEXT-ON-MESSAGES": {
-            const stateCopy = {...state}
-            stateCopy.newMessage = action.payload.text
-            return stateCopy
+            return {...state, newMessage: action.payload.text}
+        }
+        case "SEND-NEW-MESSAGE": {
+            const newMessage = {id: Date.now(), messages: state.newMessage}   // Мутации не происходит, мы берем значение из стейта, а не изменяем его
+            return {...state, messages:[...state.messages,newMessage], newMessage: ''}
         }
         default:
             return state
