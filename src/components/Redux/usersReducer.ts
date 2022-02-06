@@ -1,7 +1,10 @@
 export type UsersType = {
     id: number
-    avatar: string
-    fullName: string
+    photos: {
+        small: string | undefined,
+        large: string | undefined
+    },
+    name: string
     location: {
         city: string
         country: string
@@ -68,17 +71,24 @@ const initState: InitStateType = {
 const usersReducer = (state: InitStateType = initState, action: GeneralType) => {
     switch (action.type) {
         case "FOLLOW": {
-            return {...state, users: state.users.map(el => el.id === action.payload.userID ? {...el, followed: true} : el)}
+            return {
+                ...state,
+                users: state.users.map(el => el.id === action.payload.userID ? {...el, followed: true} : el)
+            }
             // return {...state.users.map(el => el.id === action.payload.userID ? {...el, followed: true} : el)}
         }
         case "UNFOLLOW": {
-            return {...state, users:state.users.map(el => el.id === action.payload.userID ? {...el, followed: false} : el)}
+            return {
+                ...state,
+                users: state.users.map(el => el.id === action.payload.userID ? {...el, followed: false} : el)
+            }
         }
         case "SET-USERS": {
             return {...state, users: [...state.users, ...action.payload.users]}
         }
+        default:
+            return state
     }
-    return state
 }
 
 type GeneralType = ReturnType<typeof followAC>
