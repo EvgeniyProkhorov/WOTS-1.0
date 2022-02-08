@@ -6,64 +6,67 @@ import userImg from '../../assets/images/User-Profile-PNG-Image.png'
 
 
 const Users = ({users, setUsers, followOnClick, unfollowOnClick}: UsersPropsType) => {
-    if (users.length === 0) {
-        axios.get('https://social-network.samuraijs.com/api/1.0/users')
-            .then(response => {
-                setUsers(response.data.items)
-            })
-        // setUsers([
-        //     {
-        //         id: 1,
-        //         avatar: 'https://source.unsplash.com/random/200x200?sig=incrementingIdentifier',
-        //         fullName: 'Evgen P.',
-        //         location: {
-        //             city: 'SPB',
-        //             country: 'Russia'
-        //         },
-        //         status: 'lorum ipsum',
-        //         followed: true
-        //     },
-        //     {
-        //         id: 2,
-        //         avatar: 'https://source.unsplash.com/random/200x200?sig=incrementingIdentifier',
-        //         fullName: 'Sasha I.',
-        //         location: {
-        //             city: 'Moscow',
-        //             country: 'Russia'
-        //         },
-        //         status: 'ipsum lorum',
-        //         followed: false
-        //
-        //     },
-        //     {
-        //         id: 3,
-        //         avatar: 'https://source.unsplash.com/random/200x200?sig=incrementingIdentifier',
-        //         fullName: 'Anna K.',
-        //         location: {
-        //             city: 'Kiev',
-        //             country: 'Ukraine'
-        //         },
-        //         status: 'LOL',
-        //         followed: true
-        //
-        //     },
-        //     {
-        //         id: 4,
-        //         avatar: 'https://source.unsplash.com/random/200x200?sig=incrementingIdentifier',
-        //         fullName: 'Andrew Y.',
-        //         location: {
-        //             city: 'New-York',
-        //             country: 'USA'
-        //         },
-        //         status: 'ROFL',
-        //         followed: false
-        //
-        //     },
-        // ])
+    let getUsers = () => {
+        if (users.length === 0) {
+            axios.get('https://social-network.samuraijs.com/api/1.0/users')
+                .then(response => {
+                    setUsers(response.data.items)
+                })
+            // setUsers([
+            //     {
+            //         id: 1,
+            //         avatar: 'https://source.unsplash.com/random/200x200?sig=incrementingIdentifier',
+            //         fullName: 'Evgen P.',
+            //         location: {
+            //             city: 'SPB',
+            //             country: 'Russia'
+            //         },
+            //         status: 'lorum ipsum',
+            //         followed: true
+            //     },
+            //     {
+            //         id: 2,
+            //         avatar: 'https://source.unsplash.com/random/200x200?sig=incrementingIdentifier',
+            //         fullName: 'Sasha I.',
+            //         location: {
+            //             city: 'Moscow',
+            //             country: 'Russia'
+            //         },
+            //         status: 'ipsum lorum',
+            //         followed: false
+            //
+            //     },
+            //     {
+            //         id: 3,
+            //         avatar: 'https://source.unsplash.com/random/200x200?sig=incrementingIdentifier',
+            //         fullName: 'Anna K.',
+            //         location: {
+            //             city: 'Kiev',
+            //             country: 'Ukraine'
+            //         },
+            //         status: 'LOL',
+            //         followed: true
+            //
+            //     },
+            //     {
+            //         id: 4,
+            //         avatar: 'https://source.unsplash.com/random/200x200?sig=incrementingIdentifier',
+            //         fullName: 'Andrew Y.',
+            //         location: {
+            //             city: 'New-York',
+            //             country: 'USA'
+            //         },
+            //         status: 'ROFL',
+            //         followed: false
+            //
+            //     },
+            // ])
+        }
     }
 
     return (
         <div>
+            <button onClick={getUsers}>Get USers</button>
             {users.map(u => {
                 return <div key={u.id}>
                 <span>
