@@ -14,58 +14,16 @@ export type UsersType = {
 }
 export type InitStateType = {
     users: Array<UsersType>
+    pageSize: number
+    totalUsersCount: number
+    currentPage: number
 }
 
 const initState: InitStateType = {
-    users: [
-        // {
-        //     id: 1,
-        //     avatar: 'https://source.unsplash.com/random/200x200?sig=incrementingIdentifier',
-        //     fullName: 'Evgen P.',
-        //     location: {
-        //         city: 'SPB',
-        //         country: 'Russia'
-        //     },
-        //     status: 'lorum ipsum',
-        //     followed: true
-        // },
-        // {
-        //     id: 2,
-        //     avatar: 'https://source.unsplash.com/random/200x200?sig=incrementingIdentifier',
-        //     fullName: 'Sasha I.',
-        //     location: {
-        //         city: 'Moscow',
-        //         country: 'Russia'
-        //     },
-        //     status: 'ipsum lorum',
-        //     followed: false
-        //
-        // },
-        // {
-        //     id: 3,
-        //     avatar: 'https://source.unsplash.com/random/200x200?sig=incrementingIdentifier',
-        //     fullName: 'Anna K.',
-        //     location: {
-        //         city: 'Kiev',
-        //         country: 'Ukraine'
-        //     },
-        //     status: 'LOL',
-        //     followed: true
-        //
-        // },
-        // {
-        //     id: 4,
-        //     avatar: 'https://source.unsplash.com/random/200x200?sig=incrementingIdentifier',
-        //     fullName: 'Andrew Y.',
-        //     location: {
-        //         city: 'New-York',
-        //         country: 'USA'
-        //     },
-        //     status: 'ROFL',
-        //     followed: false
-        //
-        // },
-    ]
+    users: [],
+    pageSize: 5,
+    totalUsersCount: 0,
+    currentPage: 3
 }
 
 const usersReducer = (state: InitStateType = initState, action: GeneralType) => {
@@ -84,7 +42,13 @@ const usersReducer = (state: InitStateType = initState, action: GeneralType) => 
             }
         }
         case "SET-USERS": {
-            return {...state, users: [...state.users, ...action.payload.users]}
+            return {...state, users: action.payload.users}
+        }
+        case "SET-CURRENT-PAGE": {
+            return {...state, currentPage: action.payload}
+        }
+        case "SET-TOTAL-COUNT": {
+            return {...state, totalUsersCount: action.payload}
         }
         default:
             return state
@@ -94,6 +58,8 @@ const usersReducer = (state: InitStateType = initState, action: GeneralType) => 
 type GeneralType = ReturnType<typeof followAC>
     | ReturnType<typeof unfollowAC>
     | ReturnType<typeof setUsersAC>
+    | ReturnType<typeof setCurrentPageAC>
+    | ReturnType<typeof setTotalUsersCountAC>
 
 export const followAC = (userID: number) => {
     return {
@@ -117,6 +83,20 @@ export const setUsersAC = (users: Array<UsersType>) => {
         payload: {
             users
         }
+    } as const
+}
+
+export const setCurrentPageAC = (page: number) => {
+    return {
+        type: "SET-CURRENT-PAGE",
+        payload: page
+    } as const
+}
+
+export const setTotalUsersCountAC = (count: number) => {
+    return {
+        type: "SET-TOTAL-COUNT",
+        payload: count
     } as const
 }
 
