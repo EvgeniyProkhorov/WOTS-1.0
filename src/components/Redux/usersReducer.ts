@@ -17,13 +17,15 @@ export type InitStateType = {
     pageSize: number
     totalUsersCount: number
     currentPage: number
+    isFetching: boolean
 }
 
 const initState: InitStateType = {
     users: [],
     pageSize: 5,
     totalUsersCount: 0,
-    currentPage: 3
+    currentPage: 3,
+    isFetching: false
 }
 
 const usersReducer = (state: InitStateType = initState, action: GeneralType) => {
@@ -50,18 +52,22 @@ const usersReducer = (state: InitStateType = initState, action: GeneralType) => 
         case "SET-TOTAL-COUNT": {
             return {...state, totalUsersCount: action.payload}
         }
+        case "CHANGE-ISFETCHING": {
+            return {...state, isFetching: action.payload}
+        }
         default:
             return state
     }
 }
 
-type GeneralType = ReturnType<typeof followAC>
-    | ReturnType<typeof unfollowAC>
-    | ReturnType<typeof setUsersAC>
-    | ReturnType<typeof setCurrentPageAC>
-    | ReturnType<typeof setTotalUsersCountAC>
+type GeneralType = ReturnType<typeof follow>
+    | ReturnType<typeof unfollow>
+    | ReturnType<typeof setUsers>
+    | ReturnType<typeof setCurrentPage>
+    | ReturnType<typeof setTotalUsersCount>
+    | ReturnType<typeof changeIsFetching>
 
-export const followAC = (userID: number) => {
+export const follow = (userID: number) => {
     return {
         type: "FOLLOW",
         payload: {
@@ -69,7 +75,7 @@ export const followAC = (userID: number) => {
         }
     } as const
 }
-export const unfollowAC = (userID: number) => {
+export const unfollow = (userID: number) => {
     return {
         type: "UNFOLLOW",
         payload: {
@@ -77,7 +83,7 @@ export const unfollowAC = (userID: number) => {
         }
     } as const
 }
-export const setUsersAC = (users: Array<UsersType>) => {
+export const setUsers = (users: Array<UsersType>) => {
     return {
         type: "SET-USERS",
         payload: {
@@ -86,17 +92,24 @@ export const setUsersAC = (users: Array<UsersType>) => {
     } as const
 }
 
-export const setCurrentPageAC = (page: number) => {
+export const setCurrentPage = (page: number) => {
     return {
         type: "SET-CURRENT-PAGE",
         payload: page
     } as const
 }
 
-export const setTotalUsersCountAC = (count: number) => {
+export const setTotalUsersCount = (count: number) => {
     return {
         type: "SET-TOTAL-COUNT",
         payload: count
+    } as const
+}
+
+export const changeIsFetching = (isFetching: boolean) => {
+    return {
+        type: "CHANGE-ISFETCHING",
+        payload: isFetching
     } as const
 }
 
