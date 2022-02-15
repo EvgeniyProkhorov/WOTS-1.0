@@ -2,6 +2,7 @@ import css from "./users.module.css";
 import userImg from "../../assets/images/User-Profile-PNG-Image.png";
 import React from "react";
 import {UsersType} from "../Redux/usersReducer";
+import {NavLink} from "react-router-dom";
 
 type UserFProps = {
     totalUsersCount: number
@@ -13,7 +14,7 @@ type UserFProps = {
     onClickPageChanged: (page: number) => void
 }
 
- export const Users = (props: UserFProps) => {
+export const Users = (props: UserFProps) => {
 
     let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize)
 
@@ -25,8 +26,8 @@ type UserFProps = {
     return (
         <div>
             <div>
-                {arrWithPages.map(p => {
-                    return <span onClick={() => props.onClickPageChanged(p)}
+                {arrWithPages.map((p, i) => {
+                    return <span key={`${p}_${i}`} onClick={() => props.onClickPageChanged(p)}
                                  className={props.currentPage === p ? css.selectedPage : ''}>{p}</span>
 
                 })}
@@ -40,7 +41,9 @@ type UserFProps = {
                 return <div key={u.id}>
                 <span>
                     <div>
-                        <img className={css.userPhoto} src={u.photos.small ? u.photos.small : userImg} alt={'pic'}/>
+                        <NavLink to={'/profile/' + u.id}>
+                            <img className={css.userPhoto} src={u.photos.small ? u.photos.small : userImg} alt={'pic'}/>
+                        </NavLink>
                     </div>
                     <div>
                         {u.followed
