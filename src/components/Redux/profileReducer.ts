@@ -1,5 +1,3 @@
-
-
 export type PostsType = {
     id: number
     messages: string
@@ -35,10 +33,10 @@ export type ProfilePageType = {
 }
 
 type ProfileActionsType = ReturnType<typeof addPostAC>
-| ReturnType<typeof changeNewTextOnPostAC>
-| ReturnType<typeof setUserProfile>
+    | ReturnType<typeof changeNewTextOnPostAC>
+    | ReturnType<typeof setUserProfile>
 
-let initState:ProfilePageType = {
+let initState: ProfilePageType = {
     posts: [
         {id: 1, messages: "Привет!", likesCount: 12},
         {id: 2, messages: "Как дела?", likesCount: 20},

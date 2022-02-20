@@ -24,7 +24,7 @@ class ProfileContainer extends React.Component<ProfileProps> {
 
     componentDidUpdate(prevProps: Readonly<ProfileProps>, prevState: Readonly<{}>, snapshot?: any) {
         debugger
-        if(this.props.match !== prevProps.match){
+        if (this.props.match !== prevProps.match) {
             axios.get(`https://social-network.samuraijs.com/api/1.0/profile/2`)
                 .then(response => {
                     this.props.setUserProfile(response.data)
