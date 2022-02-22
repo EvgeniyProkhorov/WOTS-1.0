@@ -1,8 +1,10 @@
 import css from "./users.module.css";
 import userImg from "../../assets/images/User-Profile-PNG-Image.png";
 import React from "react";
-import {UsersType} from "../Redux/usersReducer";
+import {UsersType} from "../../Redux/usersReducer";
 import {NavLink} from "react-router-dom";
+import axios from "axios";
+import {followAxios, unfollowAxios} from "../../api/api";
 
 type UserFProps = {
     totalUsersCount: number
@@ -47,8 +49,23 @@ export const Users = (props: UserFProps) => {
                     </div>
                     <div>
                         {u.followed
-                            ? <button onClick={() => props.unfollow(u.id)}>Unfollow</button>
-                            : <button onClick={() => props.follow(u.id)}>Follow</button>}
+                            ? <button onClick={() => {
+                                unfollowAxios(u.id)
+                                    .then(response => {
+                                        if (response.data.resultCode === 0) {
+                                            props.unfollow(u.id)
+                                        }
+                                    });
+                            }
+                            }>Unfollow</button>
+                            : <button onClick={() => {
+                                followAxios(u.id)
+                                    .then(response => {
+                                        if (response.data.resultCode === 0) {
+                                            props.follow(u.id)
+                                        }
+                                    });
+                            }}>Follow</button>}
                     </div>
                 </span>
                     <span>

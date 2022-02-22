@@ -2,11 +2,12 @@ import React from "react";
 import Profile from "./Profile";
 import axios from "axios";
 import {connect} from "react-redux";
-import {AppStateType} from "../Redux/redux-store";
-import {ProfileType, setUserProfile} from "../Redux/profileReducer";
+import {AppStateType} from "../../Redux/redux-store";
+import {ProfileType, setUserProfile} from "../../Redux/profileReducer";
 import {
     useMatch,
 } from "react-router-dom";
+import {getProfile} from "../../api/api";
 
 class ProfileContainer extends React.Component<ProfileProps> {
 
@@ -15,7 +16,7 @@ class ProfileContainer extends React.Component<ProfileProps> {
         debugger
         let userID = this.props.match ? this.props.match.params.userID : "2"
         console.log(userID)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${userID}`)
+        getProfile(userID)
             .then(response => {
                 this.props.setUserProfile(response.data)
                 console.log(response.data)
@@ -25,7 +26,7 @@ class ProfileContainer extends React.Component<ProfileProps> {
     componentDidUpdate(prevProps: Readonly<ProfileProps>, prevState: Readonly<{}>, snapshot?: any) {
         debugger
         if (this.props.match !== prevProps.match) {
-            axios.get(`https://social-network.samuraijs.com/api/1.0/profile/2`)
+            getProfile()
                 .then(response => {
                     this.props.setUserProfile(response.data)
                     console.log(response.data)

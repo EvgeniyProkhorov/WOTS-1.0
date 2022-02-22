@@ -1,8 +1,8 @@
 import React, {ChangeEvent} from "react";
 import {connect} from "react-redux";
-import {addPostAC, changeNewTextOnPostAC, PostsType} from "../../Redux/profileReducer";
+import {addPostAC, changeNewTextOnPostAC, PostsType} from "../../../Redux/profileReducer";
 import MyPosts from "./MyPosts";
-import {AppStateType} from "../../Redux/redux-store";
+import {AppStateType} from "../../../Redux/redux-store";
 import {Dispatch} from "redux";
 
 

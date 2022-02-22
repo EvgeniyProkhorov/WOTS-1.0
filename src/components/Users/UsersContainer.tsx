@@ -1,6 +1,6 @@
 import React from "react";
 import {connect} from "react-redux";
-import {AppStateType} from "../Redux/redux-store";
+import {AppStateType} from "../../Redux/redux-store";
 import {
     changeIsFetching,
     follow,
@@ -9,20 +9,20 @@ import {
     setUsers,
     unfollow,
     UsersType
-} from "../Redux/usersReducer";
-import axios from "axios";
+} from "../../Redux/usersReducer";
 import {Users} from "./Users";
 import {Preloader} from "../common/Preloader/Preloader";
+import {usersAPI} from "../../api/api";
 
 class UsersAPIComponent extends React.Component<UsersPropsType> {
 
     componentDidMount() {
         this.props.changeIsFetching(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
-            .then(response => {
+        usersAPI.getUsers(this.props.currentPage, this.props.pageSize)
+            .then(data => {
                 this.props.changeIsFetching(false)
-                this.props.setUsers(response.data.items)
-                this.props.setTotalUsersCount(response.data.totalCount)
+                this.props.setUsers(data.items)
+                this.props.setTotalUsersCount(data.totalCount)
                 // console.log(response.data.totalCount)
             })
     }
@@ -30,10 +30,10 @@ class UsersAPIComponent extends React.Component<UsersPropsType> {
     onClickPageChanged = (page: number) => {
         this.props.setCurrentPage(page)
         this.props.changeIsFetching(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${this.props.pageSize}`)
-            .then(response => {
+        usersAPI.getUsers(page, this.props.pageSize)
+            .then(data => {
                 this.props.changeIsFetching(false)
-                this.props.setUsers(response.data.items)
+                this.props.setUsers(data.items)
             })
     }
 
