@@ -18,6 +18,7 @@ export type InitStateType = {
     totalUsersCount: number
     currentPage: number
     isFetching: boolean
+    followingInProgress: Array<number>
 }
 
 const initState: InitStateType = {
@@ -25,7 +26,8 @@ const initState: InitStateType = {
     pageSize: 5,
     totalUsersCount: 0,
     currentPage: 3,
-    isFetching: false
+    isFetching: false,
+    followingInProgress: []
 }
 
 const usersReducer = (state: InitStateType = initState, action: GeneralType) => {
@@ -55,6 +57,12 @@ const usersReducer = (state: InitStateType = initState, action: GeneralType) => 
         case "CHANGE-ISFETCHING": {
             return {...state, isFetching: action.payload}
         }
+        case "TOGGLE-IS-FOLLOWING-PROGRESS":
+            return {
+                ...state, followingInProgress: action.payload.isFetching
+                    ? [...state.followingInProgress, action.payload.userID]
+                    : state.followingInProgress.filter(id => id !== action.payload.userID)
+            }
         default:
             return state
     }
@@ -66,6 +74,7 @@ type GeneralType = ReturnType<typeof follow>
     | ReturnType<typeof setCurrentPage>
     | ReturnType<typeof setTotalUsersCount>
     | ReturnType<typeof changeIsFetching>
+    | ReturnType<typeof toggleFollowingProgress>
 
 export const follow = (userID: number) => {
     return {
@@ -110,6 +119,13 @@ export const changeIsFetching = (isFetching: boolean) => {
     return {
         type: "CHANGE-ISFETCHING",
         payload: isFetching
+    } as const
+}
+
+export const toggleFollowingProgress = (isFetching: boolean, userID: number) => {
+    return {
+        type: "TOGGLE-IS-FOLLOWING-PROGRESS",
+        payload: {isFetching, userID}
     } as const
 }
 
