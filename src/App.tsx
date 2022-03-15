@@ -17,7 +17,7 @@ const App = () => {
             <HeaderContainer/>
             <Navbar sidebar={store.getState().sidebar}/>
             <div className='app-wrapper-content'>
-                <Route path="/profile/:userID" component={ProfileContainer}/>
+                <Route path="/profile/:userID?" render={() => <ProfileContainer/>}/>
                 {/*<Route path="/profile" element={<ProfileContainer/>}/>*/}
                 <Route path="/dialogs" component={DialogsContainer}/>
                 <Route path="/news" component={News}/>

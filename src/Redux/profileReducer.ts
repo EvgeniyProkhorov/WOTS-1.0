@@ -75,7 +75,7 @@ export const changeNewTextOnPostAC = (message: string) => {
     } as const
 }
 
-export const setUserProfile = (profile: any) => {
+export const setUserProfile = (profile: ProfileType) => {
     return {
         type: "SET-USER-PROFILE",
         payload: {

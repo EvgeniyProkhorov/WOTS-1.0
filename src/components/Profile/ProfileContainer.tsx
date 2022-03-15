@@ -4,14 +4,12 @@ import {connect} from "react-redux";
 import {AppStateType} from "../../Redux/redux-store";
 import {ProfileType, setUserProfile} from "../../Redux/profileReducer";
 import {getProfile} from "../../api/api";
+import {RouteComponentProps, withRouter} from "react-router-dom";
 
-class ProfileContainer extends React.Component<ProfileProps> {
-
+class ProfileContainer extends React.Component<PropsType> {
 
     componentDidMount() {
-        debugger
-        let userID = this.props.match ? this.props.match.params.userID : "2"
-        console.log(userID)
+        let userID = this.props.match.params.userID ? this.props.match.params.userID : "2"
         getProfile(userID)
             .then(response => {
                 this.props.setUserProfile(response.data)
@@ -19,41 +17,48 @@ class ProfileContainer extends React.Component<ProfileProps> {
             })
     }
 
-    componentDidUpdate(prevProps: Readonly<ProfileProps>, prevState: Readonly<{}>, snapshot?: any) {
-        debugger
-        if (this.props.match !== prevProps.match) {
-            getProfile()
-                .then(response => {
-                    this.props.setUserProfile(response.data)
-                    console.log(response.data)
-                })
-        }
-    }
+    // componentDidUpdate(prevProps: Readonly<ProfileProps>, prevState: Readonly<{}>, snapshot?: any) {
+    //     if (this.props.match !== prevProps.match) {
+    //         getProfile()
+    //             .then(response => {
+    //                 this.props.setUserProfile(response.data)
+    //                 console.log(response.data)
+    //             })
+    //     }
+    // }
 
     render() {
+        console.log(this.props)
         return (
             <Profile profile={this.props.profile}/>
         )
     }
+}
+type PropsType = RouteComponentProps<PathParamsType> & OwnProfileProps
+
+type PathParamsType = {
+    userID: string
 }
 
 type MapStateProps = {
     profile: ProfileType | undefined
 }
 
-type WithRouteProps = {
-    match: {
-        params:
-            { userID: string }
-    }
-    // userId: string
-}
+let WithUrlDataContainerComponent = withRouter(ProfileContainer)
+
+// type WithRouteProps = {
+//     match: {
+//         params:
+//             { userID: string }
+//     }
+//     // userId: string
+// }
 
 type MapDispatchProps = {
-    setUserProfile: (profile: any) => void
+    setUserProfile: (profile: ProfileType) => void
 }
 
-type ProfileProps = MapStateProps & MapDispatchProps & WithRouteProps
+type OwnProfileProps = MapStateProps & MapDispatchProps
 const mapStateToProps = (state: AppStateType): MapStateProps => {
     return {
         profile: state.profilePage.profile
@@ -77,5 +82,5 @@ const mapStateToProps = (state: AppStateType): MapStateProps => {
 
 export default connect(mapStateToProps, {
     setUserProfile
-})(ProfileContainer);
+})(WithUrlDataContainerComponent);
 
