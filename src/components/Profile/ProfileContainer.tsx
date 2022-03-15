@@ -17,15 +17,15 @@ class ProfileContainer extends React.Component<PropsType> {
             })
     }
 
-    // componentDidUpdate(prevProps: Readonly<ProfileProps>, prevState: Readonly<{}>, snapshot?: any) {
-    //     if (this.props.match !== prevProps.match) {
-    //         getProfile()
-    //             .then(response => {
-    //                 this.props.setUserProfile(response.data)
-    //                 console.log(response.data)
-    //             })
-    //     }
-    // }
+    componentDidUpdate(prevProps: Readonly<PropsType>, prevState: Readonly<{}>, snapshot?: any) {
+        if (this.props.match !== prevProps.match) {
+            getProfile()
+                .then(response => {
+                    this.props.setUserProfile(response.data)
+                    console.log(response.data)
+                })
+        }
+    }
 
     render() {
         console.log(this.props)
