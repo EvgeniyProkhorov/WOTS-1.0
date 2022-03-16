@@ -71,15 +71,15 @@ const usersReducer = (state: InitStateType = initState, action: GeneralType) => 
     }
 }
 
-type GeneralType = ReturnType<typeof follow>
-    | ReturnType<typeof unfollow>
+type GeneralType = ReturnType<typeof followSuccess>
+    | ReturnType<typeof unfollowSuccess>
     | ReturnType<typeof setUsers>
     | ReturnType<typeof setCurrentPage>
     | ReturnType<typeof setTotalUsersCount>
     | ReturnType<typeof changeIsFetching>
     | ReturnType<typeof toggleFollowingProgress>
 
-export const follow = (userID: number) => {
+export const followSuccess = (userID: number) => {
     return {
         type: "FOLLOW",
         payload: {
@@ -87,7 +87,7 @@ export const follow = (userID: number) => {
         }
     } as const
 }
-export const unfollow = (userID: number) => {
+export const unfollowSuccess = (userID: number) => {
     return {
         type: "UNFOLLOW",
         payload: {
@@ -141,6 +141,28 @@ export const getUsersThunkCreator = (currentPage: number, pageSize: number) => (
             dispatch(setTotalUsersCount(data.totalCount))
             // console.log(response.data.totalCount)
         })
+}
+
+export const followThunkCreator = (userID: number) => (dispatch: Dispatch) => {
+    dispatch(toggleFollowingProgress(true, userID))
+    usersAPI.followAxios(userID)
+        .then(response => {
+            if (response.data.resultCode === 0) {
+                dispatch(followSuccess(userID))
+            }
+            dispatch(toggleFollowingProgress(false, userID))
+        });
+}
+
+export const unfollowThunkCreator = (userID: number) => (dispatch: Dispatch) => {
+    dispatch(toggleFollowingProgress(true, userID))
+    usersAPI.unfollowAxios(userID)
+        .then(response => {
+            if (response.data.resultCode === 0) {
+                dispatch(unfollowSuccess(userID))
+            }
+            dispatch(toggleFollowingProgress(false, userID))
+        });
 }
 
 export default usersReducer;

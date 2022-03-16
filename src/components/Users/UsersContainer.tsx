@@ -2,12 +2,10 @@ import React from "react";
 import {connect} from "react-redux";
 import {AppStateType} from "../../Redux/redux-store";
 import {
-    changeIsFetching,
-    follow, getUsersThunkCreator,
+    changeIsFetching, followThunkCreator, getUsersThunkCreator,
     setCurrentPage,
     setTotalUsersCount,
-    setUsers, toggleFollowingProgress,
-    unfollow,
+    setUsers, toggleFollowingProgress, unfollowThunkCreator,
     UsersType
 } from "../../Redux/usersReducer";
 import {Users} from "./Users";
@@ -39,8 +37,8 @@ class UsersAPIComponent extends React.Component<UsersPropsType> {
                          pageSize={this.props.pageSize}
                          totalUsersCount={this.props.totalUsersCount}
                          currentPage={this.props.currentPage}
-                         follow={this.props.follow}
-                         unfollow={this.props.unfollow}
+                         followThunkCreator={this.props.followThunkCreator}
+                         unfollowThunkCreator={this.props.unfollowThunkCreator}
                          onClickPageChanged={this.onClickPageChanged}
                          toggleFollowingProgress={this.props.toggleFollowingProgress}
                          followingInProgress={this.props.followingInProgress}/>}
@@ -66,6 +64,9 @@ type MapDispatchProps = {
     changeIsFetching: (isFetching: boolean) => void
     toggleFollowingProgress: (isFetching: boolean, userID: number) => void
     getUsersThunkCreator: (currentPage: number, pageSize: number) => void
+    followThunkCreator: (userID: number) => void
+    unfollowThunkCreator: (userID: number) => void
+
 }
 
 export type UsersPropsType = MapStateProps & MapDispatchProps
@@ -108,8 +109,8 @@ const mapStateToProps = (state: AppStateType): MapStateProps => {
 // const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(UsersAPIComponent)
 
 const UsersContainer = connect(mapStateToProps, {
-    follow,
-    unfollow,
+    followThunkCreator,
+    unfollowThunkCreator,
     setUsers,
     setCurrentPage,
     setTotalUsersCount,
