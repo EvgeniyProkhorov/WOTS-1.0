@@ -12,7 +12,6 @@ import {
 } from "../../Redux/usersReducer";
 import {Users} from "./Users";
 import {Preloader} from "../common/Preloader/Preloader";
-import {usersAPI} from "../../api/api";
 
 class UsersAPIComponent extends React.Component<UsersPropsType> {
 
@@ -22,12 +21,7 @@ class UsersAPIComponent extends React.Component<UsersPropsType> {
 
     onClickPageChanged = (page: number) => {
         this.props.setCurrentPage(page)
-        this.props.changeIsFetching(true)
-        usersAPI.getUsers(page, this.props.pageSize)
-            .then(data => {
-                this.props.changeIsFetching(false)
-                this.props.setUsers(data.items)
-            })
+        this.props.getUsersThunkCreator(page, this.props.pageSize)
     }
 
     render() {

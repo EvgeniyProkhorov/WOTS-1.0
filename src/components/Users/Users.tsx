@@ -3,7 +3,7 @@ import userImg from "../../assets/images/User-Profile-PNG-Image.png";
 import React from "react";
 import {UsersType} from "../../Redux/usersReducer";
 import {NavLink} from "react-router-dom";
-import {followAxios, unfollowAxios} from "../../api/api";
+import {usersAPI} from "../../api/api";
 
 type UserFProps = {
     totalUsersCount: number
@@ -53,7 +53,7 @@ export const Users = (props: UserFProps) => {
                         {u.followed
                             ? <button disabled={props.followingInProgress.some(id => id === u.id)} onClick={() => {
                                 props.toggleFollowingProgress(true, u.id)
-                                unfollowAxios(u.id)
+                                usersAPI.unfollowAxios(u.id)
                                     .then(response => {
                                         if (response.data.resultCode === 0) {
                                             props.unfollow(u.id)
@@ -64,7 +64,7 @@ export const Users = (props: UserFProps) => {
                             }>Unfollow</button>
                             : <button disabled={props.followingInProgress.some(id => id === u.id)} onClick={() => {
                                 props.toggleFollowingProgress(true, u.id)
-                                followAxios(u.id)
+                                usersAPI.followAxios(u.id)
                                     .then(response => {
                                         if (response.data.resultCode === 0) {
                                             props.follow(u.id)

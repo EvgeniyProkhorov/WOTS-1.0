@@ -3,11 +3,11 @@ import Header from "./Header";
 import {AppStateType} from "../../Redux/redux-store";
 import {connect} from "react-redux";
 import {AuthInitStateProps, setAuthUserData} from "../../Redux/auth-reducer";
-import {authMe} from "../../api/api";
+import {usersAPI} from "../../api/api";
 
 class HeaderContainer extends React.Component<HeaderProps> {
     componentDidMount() {
-        authMe()
+        usersAPI.authMe()
             .then(data => {
                 console.log(data)
                 if (data.resultCode === 0) {

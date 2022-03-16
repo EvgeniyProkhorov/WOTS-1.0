@@ -3,14 +3,14 @@ import Profile from "./Profile";
 import {connect} from "react-redux";
 import {AppStateType} from "../../Redux/redux-store";
 import {ProfileType, setUserProfile} from "../../Redux/profileReducer";
-import {getProfile} from "../../api/api";
 import {RouteComponentProps, withRouter} from "react-router-dom";
+import {usersAPI} from "../../api/api";
 
 class ProfileContainer extends React.Component<PropsType> {
 
     componentDidMount() {
         let userID = this.props.match.params.userID ? this.props.match.params.userID : "2"
-        getProfile(userID)
+        usersAPI.getProfile(userID)
             .then(response => {
                 this.props.setUserProfile(response.data)
                 console.log(response.data)
@@ -19,7 +19,7 @@ class ProfileContainer extends React.Component<PropsType> {
 
     componentDidUpdate(prevProps: Readonly<PropsType>, prevState: Readonly<{}>, snapshot?: any) {
         if (this.props.match !== prevProps.match) {
-            getProfile()
+            usersAPI.getProfile()
                 .then(response => {
                     this.props.setUserProfile(response.data)
                     console.log(response.data)

@@ -13,28 +13,22 @@ export const usersAPI = {
         return instance.get(`users?page=${currentPage}&count=${pageSize}`)
             .then(response => response.data)
     },
+    getProfile (userID: string = '2') {
+        return instance.get(`profile/${userID}`)
+    },
+    authMe () {
+        return instance.get(`auth/me`)
+            .then(response => response.data)
+    },
+    followAxios (userID: number) {
+        return instance.post(`follow/${userID}`)
+    },
+    unfollowAxios (userID: number) {
+        return instance.delete(`follow/${userID}`)
+    }
 }
 
 // export const getUsers = (currentPage: number, pageSize: number) => {
 //     return instance.get(`users?page=${currentPage}&count=${pageSize}`)
 //         .then(response => response.data)
 // }
-
-export const unfollowAxios = (userID: number) => {
-    return instance.delete(`follow/${userID}`)
-}
-
-export const followAxios = (userID: number) => {
-    return instance.post(`follow/${userID}`)
-}
-
-
-export const authMe = () => {
-    return instance.get(`auth/me`)
-        .then(response => response.data)
-
-}
-
-export const getProfile = (userID: string = '2') => {
-    return instance.get(`profile/${userID}`)
-}
