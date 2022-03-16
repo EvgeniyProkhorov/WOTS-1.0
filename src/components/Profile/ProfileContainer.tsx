@@ -34,6 +34,7 @@ class ProfileContainer extends React.Component<PropsType> {
         )
     }
 }
+
 type PropsType = RouteComponentProps<PathParamsType> & OwnProfileProps
 
 type PathParamsType = {
