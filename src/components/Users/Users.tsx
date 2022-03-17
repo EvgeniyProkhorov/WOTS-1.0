@@ -3,7 +3,6 @@ import userImg from "../../assets/images/User-Profile-PNG-Image.png";
 import React from "react";
 import {UsersType} from "../../Redux/usersReducer";
 import {NavLink} from "react-router-dom";
-import {usersAPI} from "../../api/api";
 
 type UserFProps = {
     totalUsersCount: number

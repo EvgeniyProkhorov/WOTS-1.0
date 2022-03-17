@@ -2,7 +2,7 @@ import React from "react";
 import Profile from "./Profile";
 import {connect} from "react-redux";
 import {AppStateType} from "../../Redux/redux-store";
-import {ProfileType, setUserProfile} from "../../Redux/profileReducer";
+import {ProfileType, setUserProfile, setUserProfileTC} from "../../Redux/profileReducer";
 import {RouteComponentProps, withRouter} from "react-router-dom";
 import {usersAPI} from "../../api/api";
 
@@ -10,20 +10,12 @@ class ProfileContainer extends React.Component<PropsType> {
 
     componentDidMount() {
         let userID = this.props.match.params.userID ? this.props.match.params.userID : "2"
-        usersAPI.getProfile(userID)
-            .then(response => {
-                this.props.setUserProfile(response.data)
-                console.log(response.data)
-            })
+        this.props.setUserProfileTC(userID)
     }
 
     componentDidUpdate(prevProps: Readonly<PropsType>, prevState: Readonly<{}>, snapshot?: any) {
         if (this.props.match !== prevProps.match) {
-            usersAPI.getProfile()
-                .then(response => {
-                    this.props.setUserProfile(response.data)
-                    console.log(response.data)
-                })
+            this.props.setUserProfileTC('2')
         }
     }
 
@@ -56,7 +48,7 @@ let WithUrlDataContainerComponent = withRouter(ProfileContainer)
 // }
 
 type MapDispatchProps = {
-    setUserProfile: (profile: ProfileType) => void
+    setUserProfileTC: (userID: string) => void
 }
 
 type OwnProfileProps = MapStateProps & MapDispatchProps
@@ -82,6 +74,6 @@ const mapStateToProps = (state: AppStateType): MapStateProps => {
 // let WithUrlDataContainerComponent = withRouter(ProfileContainer)
 
 export default connect(mapStateToProps, {
-    setUserProfile
+    setUserProfileTC
 })(WithUrlDataContainerComponent);
 

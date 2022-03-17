@@ -1,3 +1,6 @@
+import {Dispatch} from "redux";
+import {usersAPI} from "../api/api";
+
 export type PostsType = {
     id: number
     messages: string
@@ -82,6 +85,14 @@ export const setUserProfile = (profile: ProfileType) => {
             profile
         }
     } as const
+}
+
+export const setUserProfileTC = (userID: string) => (dispatch: Dispatch) => {
+    usersAPI.getProfile(userID)
+        .then(response => {
+            dispatch(setUserProfile(response.data))
+            console.log(response.data)
+        })
 }
 
 export default profileReducer;
