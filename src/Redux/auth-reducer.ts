@@ -1,15 +1,21 @@
 import {Dispatch} from "redux";
-import {authAPI, usersAPI} from "../api/api";
+import {authAPI} from "../api/api";
+
+export type AuthInitStateProps = {
+    userID: string | null,
+    email: string | null,
+    login: string | null,
+    isAuth: boolean
+}
+type ActionType = ReturnType<typeof setAuthUserData>
+
 
 const initState = {
     userID: null,
     email: null,
     login: null,
-    isAuth: false,
+    isAuth: false
 }
-
-export type AuthInitStateProps = typeof initState
-type ActionType = ReturnType<typeof setAuthUserData>
 
 export const authReducer = (state: AuthInitStateProps = initState, action: ActionType) => {
     switch (action.type) {
@@ -27,7 +33,7 @@ export const setAuthUserData = (userID: string, email: string, login: string) =>
     } as const
 }
 
-export const authUserTC = () => (dispatch: Dispatch) => {
+export const getAuthUserTC = () => (dispatch: Dispatch) => {
     authAPI.authMe()
         .then(data => {
             console.log(data)

@@ -21,7 +21,7 @@ function Dialogs(props: DialogsPropsType) {
         props.onClickSendMessage()
     }
 
-
+    alert(props.isAuth)
     return (
         <div className={s.dialogs}>
             <div className={s.items}>
