@@ -16,15 +16,18 @@ export const usersAPI = {
     getProfile (userID: string = '2') {
         return instance.get(`profile/${userID}`)
     },
-    authMe () {
-        return instance.get(`auth/me`)
-            .then(response => response.data)
-    },
     followAxios (userID: number) {
         return instance.post(`follow/${userID}`)
     },
     unfollowAxios (userID: number) {
         return instance.delete(`follow/${userID}`)
+    }
+}
+
+export const authAPI = {
+    authMe () {
+        return instance.get(`auth/me`)
+            .then(response => response.data)
     }
 }
 
