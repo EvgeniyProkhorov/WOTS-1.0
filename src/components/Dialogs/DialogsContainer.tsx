@@ -30,7 +30,6 @@ const mapDispatchToProps = (dispatch: Dispatch): MapDispatchPropsType => {
             dispatch(changeTextOnMessageAC(e.currentTarget.value))
         },
         onClickSendMessage: () => {
-            // const newMessage = store.getState().dialogsPage.newMessage;
             dispatch(sendNewMessageAC())
         }
     }
