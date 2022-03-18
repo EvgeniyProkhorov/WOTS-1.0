@@ -22,7 +22,7 @@ function Dialogs(props: DialogsPropsType) {
         props.onClickSendMessage()
     }
 
-    if(!props.isAuth){
+    if (!props.isAuth) {
         return <Redirect to={"/login"}/>
     }
 
