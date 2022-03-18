@@ -2,7 +2,7 @@ import React from "react";
 import Profile from "./Profile";
 import {connect} from "react-redux";
 import {AppStateType} from "../../Redux/redux-store";
-import {ProfileType, setUserProfile, getUserProfileTC} from "../../Redux/profileReducer";
+import {ProfileType, getUserProfileTC} from "../../Redux/profileReducer";
 import {RouteComponentProps, withRouter} from "react-router-dom";
 import {usersAPI} from "../../api/api";
 
