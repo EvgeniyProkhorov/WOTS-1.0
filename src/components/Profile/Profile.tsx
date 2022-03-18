@@ -10,7 +10,7 @@ type ProfileProps = {
 }
 
 function Profile(props: ProfileProps) {
-    if(!props.isAuth){
+    if (!props.isAuth) {
         return <Redirect to={"/login"}/>
     }
     return (
