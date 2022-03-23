@@ -23,7 +23,8 @@ class ProfileContainer extends React.Component<PropsType> {
         console.log(this.props)
         return (
             <Profile profile={this.props.profile}
-                     isAuth={this.props.isAuth}/>
+                     // isAuth={this.props.isAuth}
+            />
         )
     }
 }
@@ -36,7 +37,7 @@ type PathParamsType = {
 
 type MapStateProps = {
     profile: ProfileType | undefined
-    isAuth: boolean
+    // isAuth: boolean
 }
 
 let WithUrlDataContainerComponent = withRouter(ProfileContainer)
@@ -57,7 +58,7 @@ type OwnProfileProps = MapStateProps & MapDispatchProps
 const mapStateToProps = (state: AppStateType): MapStateProps => {
     return {
         profile: state.profilePage.profile,
-        isAuth: state.auth.isAuth
+        // isAuth: state.auth.isAuth
     }
 }
 
