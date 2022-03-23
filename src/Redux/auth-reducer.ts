@@ -14,7 +14,7 @@ const initState = {
     userID: null,
     email: null,
     login: null,
-    isAuth: false
+    isAuth: true
 }
 
 export const authReducer = (state: AuthInitStateProps = initState, action: ActionType) => {
