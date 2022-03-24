@@ -10,6 +10,8 @@ import {
 } from "../../Redux/usersReducer";
 import {Users} from "./Users";
 import {Preloader} from "../common/Preloader/Preloader";
+import {compose} from "redux";
+import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 
 class UsersAPIComponent extends React.Component<UsersPropsType> {
 
@@ -108,16 +110,30 @@ const mapStateToProps = (state: AppStateType): MapStateProps => {
 
 // const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(UsersAPIComponent)
 
-const UsersContainer = connect(mapStateToProps, {
-    followThunkCreator,
-    unfollowThunkCreator,
-    setUsers,
-    setCurrentPage,
-    setTotalUsersCount,
-    changeIsFetching,
-    toggleFollowingProgress,
-    getUsersThunkCreator
+export default compose<React.ComponentType>(
+    connect(mapStateToProps, {
+        followThunkCreator,
+        unfollowThunkCreator,
+        setUsers,
+        setCurrentPage,
+        setTotalUsersCount,
+        changeIsFetching,
+        toggleFollowingProgress,
+        getUsersThunkCreator
+    }),
+    withAuthRedirect
+)(UsersAPIComponent)
 
-})(UsersAPIComponent)
-
-export default UsersContainer;
+// const UsersContainer = connect(mapStateToProps, {
+//     followThunkCreator,
+//     unfollowThunkCreator,
+//     setUsers,
+//     setCurrentPage,
+//     setTotalUsersCount,
+//     changeIsFetching,
+//     toggleFollowingProgress,
+//     getUsersThunkCreator
+//
+// })(UsersAPIComponent)
+//
+// export default UsersContainer;
