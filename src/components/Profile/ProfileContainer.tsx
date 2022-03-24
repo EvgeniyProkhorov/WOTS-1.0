@@ -41,16 +41,6 @@ type MapStateProps = {
     // isAuth: boolean
 }
 
-let WithUrlDataContainerComponent = withRouter(ProfileContainer)
-
-// type WithRouteProps = {
-//     match: {
-//         params:
-//             { userID: string }
-//     }
-//     // userId: string
-// }
-
 type MapDispatchProps = {
     getUserProfileTC: (userID: string) => void
 }
@@ -62,6 +52,28 @@ const mapStateToProps = (state: AppStateType): MapStateProps => {
         // isAuth: state.auth.isAuth
     }
 }
+
+compose(
+    connect(mapStateToProps, {
+        getUserProfileTC
+    }),
+    withAuthRedirect,
+    withRouter
+)(ProfileContainer)
+
+let WithUrlDataContainerComponent = withRouter(ProfileContainer)
+
+export default withAuthRedirect(connect(mapStateToProps, {
+    getUserProfileTC
+})(WithUrlDataContainerComponent));
+
+// type WithRouteProps = {
+//     match: {
+//         params:
+//             { userID: string }
+//     }
+//     // userId: string
+// }
 
 // function withRouter(Component: any) {
 //     function ComponentWithRouterProp(props: any) {
@@ -77,15 +89,4 @@ const mapStateToProps = (state: AppStateType): MapStateProps => {
 // }
 
 // let WithUrlDataContainerComponent = withRouter(ProfileContainer)
-
-compose(
-    connect(mapStateToProps, {
-        getUserProfileTC
-    }),
-    withAuthRedirect
-)(WithUrlDataContainerComponent)
-
-export default withAuthRedirect(connect(mapStateToProps, {
-    getUserProfileTC
-})(WithUrlDataContainerComponent));
 
