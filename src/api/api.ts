@@ -13,19 +13,19 @@ export const usersAPI = {
         return instance.get(`users?page=${currentPage}&count=${pageSize}`)
             .then(response => response.data)
     },
-    getProfile (userID: string = '2') {
+    getProfile(userID: string = '2') {
         return instance.get(`profile/${userID}`)
     },
-    followAxios (userID: number) {
+    followAxios(userID: number) {
         return instance.post(`follow/${userID}`)
     },
-    unfollowAxios (userID: number) {
+    unfollowAxios(userID: number) {
         return instance.delete(`follow/${userID}`)
     }
 }
 
 export const authAPI = {
-    authMe () {
+    authMe() {
         return instance.get(`auth/me`)
             .then(response => response.data)
     }
