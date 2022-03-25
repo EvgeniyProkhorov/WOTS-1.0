@@ -49,7 +49,6 @@ type OwnProfileProps = MapStateProps & MapDispatchProps
 const mapStateToProps = (state: AppStateType): MapStateProps => {
     return {
         profile: state.profilePage.profile,
-        // isAuth: state.auth.isAuth
     }
 }
 
